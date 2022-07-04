@@ -137,7 +137,7 @@ class StyleTransferModel(object):
         while run[0] <= self.num_steps:
             print(run[0])
             await asyncio.sleep(random.randint(0, 5))
-            p
+            
             def closure():
                 
                 # correct the values
