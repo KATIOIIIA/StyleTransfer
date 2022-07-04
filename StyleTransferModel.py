@@ -135,17 +135,17 @@ class StyleTransferModel(object):
         print('Optimizing..')
         run = [0]
         while run[0] <= self.num_steps:
-            print(run)
+            print(run[0])
             await asyncio.sleep(random.randint(0, 5))
-            print(run)
+            p
             def closure():
-                print('run closure')
+                
                 # correct the values
                 # это для того, чтобы значения тензора картинки не выходили за пределы [0;1]
                 self.input_img.data.clamp_(0, 1)
-                print('zero_grad')
+                
                 optimizer.zero_grad()
-                print('model')
+                
                 model(self.input_img)
 
                 style_score = 0
@@ -159,17 +159,9 @@ class StyleTransferModel(object):
                 # взвешивание ощибки
                 style_score *= self.style_weight
                 content_score *= self.content_weight
-                print('backward')
+                
                 loss = style_score + content_score
                 loss.backward()
-
-                run[0] += 1
-
-                if run[0] % 50 == 0:
-                    print("run {}:".format(run))
-                    print('Style Loss : {:4f} Content Loss: {:4f}'.format(
-                        style_score.item(), content_score.item()))
-                    print()
 
                 return style_score + content_score
 
