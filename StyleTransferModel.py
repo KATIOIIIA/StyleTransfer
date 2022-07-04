@@ -135,7 +135,7 @@ class StyleTransferModel(object):
         print('Optimizing..')
         run = [0]
         while run[0] <= self.num_steps:
-
+            print(run)
             await asyncio.sleep(random.randint(0, 5))
 
             def closure():
