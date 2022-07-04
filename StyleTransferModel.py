@@ -7,10 +7,9 @@ import torchvision.transforms as transforms
 
 
 import copy
-
-from torch import device, tensor, mm
+import torch
+from torch import tensor, mm
 from torch import float as fl
-from torch.version import cuda
 from torchvision import models
 
 from ContentLoss import ContentLoss
