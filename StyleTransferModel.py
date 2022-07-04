@@ -4,12 +4,13 @@ from PIL import Image
 import torch.nn as nn
 import torch.optim as optim
 import torchvision.transforms as transforms
-from torch import device, tensor, mm
-from torch import float as fl
-from torch.version import cuda
+
 
 import copy
 
+from torch import device, tensor, mm
+from torch import float as fl
+from torch.version import cuda
 from torchvision import models
 
 from ContentLoss import ContentLoss
@@ -55,7 +56,7 @@ class StyleTransferModel(object):
         # b=number of feature maps
         # (h,w)=dimensions of a feature map (N=h*w)
         features = input.view(batch_size * h, w * f_map_num)  # resise F_XL into \hat F_XL
-        G = torch.mm(features, features.t())  # compute the gram product
+        G = mm(features, features.t())  # compute the gram product
         # we 'normalize' the values of the gram matrix
         # by dividing by the number of element in each feature maps.
         return G.div(batch_size * h * w * f_map_num)
