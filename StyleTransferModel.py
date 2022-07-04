@@ -135,7 +135,7 @@ class StyleTransferModel(object):
         print('Optimizing..')
         run = [0]
         while run[0] <= self.num_steps:
-            print(run[0])
+            print(run)
             await asyncio.sleep(random.randint(0, 5))
             
             def closure():
@@ -162,7 +162,9 @@ class StyleTransferModel(object):
                 
                 loss = style_score + content_score
                 loss.backward()
-
+                
+                run[0] += 1
+                
                 return style_score + content_score
 
             optimizer.step(closure)
