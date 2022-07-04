@@ -1,5 +1,6 @@
 import random
 
+import torch
 from PIL import Image
 import torch.nn as nn
 import torch.optim as optim
@@ -7,7 +8,7 @@ import torchvision.transforms as transforms
 
 
 import copy
-import torch
+
 from torch import tensor, mm
 from torch import float as fl
 from torchvision import models
@@ -34,7 +35,7 @@ class StyleTransferModel(object):
             transforms.CenterCrop(self.imsize),
             transforms.ToTensor()])  # превращаем в удобный формат
 
-        self.device = device("cuda" if cuda.is_available() else "cpu")
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
         self.style_img = self.image_loader(fileNameStyle)
         self.content_img = self.image_loader(fileNameImage)
