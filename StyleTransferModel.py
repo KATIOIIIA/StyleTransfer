@@ -44,24 +44,23 @@ class StyleTransferModel(object):
         self.cnn = torch.load('model/vgg19.pth').to(self.device).eval()
 
     def image_loader(self, download_file):
-        print('image_loader')
         image = Image.open(download_file)
         image = self.loader(image).unsqueeze(0)
-        return image.to(self.device, torch.float)
+        return image.to(self.device, fl)
 
     def gram_matrix(self, input):
         batch_size, h, w, f_map_num = input.size()  # batch size(=1)
         # b=number of feature maps
         # (h,w)=dimensions of a feature map (N=h*w)
         features = input.view(batch_size * h, w * f_map_num)  # resise F_XL into \hat F_XL
-        G = torch.mm(features, features.t())  # compute the gram product
+        G = mm(features, features.t())  # compute the gram product
         # we 'normalize' the values of the gram matrix
         # by dividing by the number of element in each feature maps.
         return G.div(batch_size * h * w * f_map_num)
 
     def get_style_model_and_losses(self):
         cnn = copy.deepcopy(self.cnn)
-        print('get_style_model_and_losses')
+
         content_layers = self.content_layers_default
         style_layers = self.style_layers_default
         # normalization module
@@ -136,17 +135,16 @@ class StyleTransferModel(object):
         print('Optimizing..')
         run = [0]
         while run[0] <= self.num_steps:
-            print(run)
-            await asyncio.sleep(0)
-            
+
+            await asyncio.sleep(random.randint(0, 5))
+
             def closure():
-                
                 # correct the values
                 # это для того, чтобы значения тензора картинки не выходили за пределы [0;1]
                 self.input_img.data.clamp_(0, 1)
-                
+
                 optimizer.zero_grad()
-                
+
                 model(self.input_img)
 
                 style_score = 0
@@ -160,19 +158,25 @@ class StyleTransferModel(object):
                 # взвешивание ощибки
                 style_score *= self.style_weight
                 content_score *= self.content_weight
-                
+
                 loss = style_score + content_score
                 loss.backward()
-                print('backward')
+
                 run[0] += 1
-                
+
+                if run[0] % 50 == 0:
+                    print("run {}:".format(run))
+                    print('Style Loss : {:4f} Content Loss: {:4f}'.format(
+                        style_score.item(), content_score.item()))
+                    print()
+
                 return style_score + content_score
 
             optimizer.step(closure)
 
         # a last correction...
         self.input_img.data.clamp_(0, 1)
-  
+
         return self.input_img
 
 
@@ -180,6 +184,8 @@ class StyleTransferModel(object):
 fileNameStyle = "images/style.jpg"
 fileNameImage = "images/IMG.jpg"
 ST_model = StyleTransferModel(fileNameStyle, fileNameImage)
+
 output = ST_model.run_style_transfer()
+
 save_image(output, 'img1.png')
 '''
