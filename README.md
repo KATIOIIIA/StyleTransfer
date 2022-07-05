@@ -32,3 +32,10 @@
 ## Примеры работы бота
 Стиль                      |  Обрабатываемое изображение       |  Результат работы
 :-------------------------:|:---------------------------------:|:-------------------------:
+<img src="https://github.com/KATIOIIIA/StyleTransfer/blob/00d1bffe35231548e728e30459fa6014b52a36e3/images/style.jpg" height="250" width="250">  |  <img src="https://github.com/KATIOIIIA/StyleTransfer/blob/00d1bffe35231548e728e30459fa6014b52a36e3/images/IMG.jpg" height="250" width="250">  |  <img src="https://github.com/KATIOIIIA/StyleTransfer/blob/00d1bffe35231548e728e30459fa6014b52a36e3/images/result.jpg" height="250" width="250"> 
+||
+<img src="https://github.com/KATIOIIIA/StyleTransfer/blob/00d1bffe35231548e728e30459fa6014b52a36e3/images/style3.jpeg" height="250" width="250">  |  <img src="https://github.com/KATIOIIIA/StyleTransfer/blob/00d1bffe35231548e728e30459fa6014b52a36e3/images/images3.jpeg" height="250" width="250">  |  <img src="https://github.com/KATIOIIIA/StyleTransfer/blob/00d1bffe35231548e728e30459fa6014b52a36e3/images/result3.jpg" height="250" width="250"> 
+
+## Как работает бот можно посмотреть по ссылк: 
+
+https://github.com/KATIOIIIA/StyleTransfer/blob/00d1bffe35231548e728e30459fa6014b52a36e3/images/bot_w.avi
