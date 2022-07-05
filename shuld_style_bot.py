@@ -92,7 +92,6 @@ def send_status():
 
 
 def getBytesIOimg(img_data):
-    print('save result')
     output = np.rollaxis(img_data.cpu().detach().numpy()[0], 0, 3)
     output = Image.fromarray(np.uint8(output * 255))
     bio = BytesIO()
@@ -190,7 +189,6 @@ async def unknown_message(msg: types.Message):
                         italic('\nЯ просто напомню,'), 'что есть',
                         code('команда'), '/help')
     await msg.reply(message_text, parse_mode=ParseMode.MARKDOWN)
-
 
 if __name__ == '__main__':
     #executor.start_polling(dp)
