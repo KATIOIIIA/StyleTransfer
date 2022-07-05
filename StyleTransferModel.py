@@ -44,6 +44,7 @@ class StyleTransferModel(object):
         self.cnn = torch.load('model/vgg19.pth').to(self.device).eval()
 
     def image_loader(self, download_file):
+        print('image_loader')
         image = Image.open(download_file)
         image = self.loader(image).unsqueeze(0)
         return image.to(self.device, torch.float)
@@ -60,7 +61,7 @@ class StyleTransferModel(object):
 
     def get_style_model_and_losses(self):
         cnn = copy.deepcopy(self.cnn)
-
+        print('get_style_model_and_losses')
         content_layers = self.content_layers_default
         style_layers = self.style_layers_default
         # normalization module
@@ -162,7 +163,7 @@ class StyleTransferModel(object):
                 
                 loss = style_score + content_score
                 loss.backward()
-                
+                print('backward')
                 run[0] += 1
                 
                 return style_score + content_score
@@ -171,7 +172,7 @@ class StyleTransferModel(object):
 
         # a last correction...
         self.input_img.data.clamp_(0, 1)
-
+  
         return self.input_img
 
 
