@@ -92,6 +92,7 @@ def send_status():
 
 
 def getBytesIOimg(img_data):
+    print('save result')
     output = np.rollaxis(img_data.cpu().detach().numpy()[0], 0, 3)
     output = Image.fromarray(np.uint8(output * 255))
     bio = BytesIO()
